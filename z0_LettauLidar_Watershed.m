@@ -355,22 +355,43 @@ hold on
 surf(watershed_lines, 'EdgeColor', "black")
 title([dataTitleText  ' with Watershed Boundaries'])
 
+figure;
+surf(aoiSurfReady, 'EdgeColor', 'none', 'FaceColor', 'interp')
+colormap(cmap)
+hold on
+surf(watershed_lines, 'EdgeColor', "black")
+title([dataTitleText  ' with Watershed Boundaries'])
+view(2)
+
+figure; 
+surf(aoiSurfReady,WS, 'EdgeColor','none')
+title([dataTitleText  ' Watersheds'])
+colormap(cmap)
+axis square
+view(2) 
+
 figure; colormap(cmap)
 surf(aoiSurfReady,Z0_colored, 'EdgeColor','none')
-
-title([dataTitleText  ' Colored by Z_0 Value'])
+title([dataTitleText  ' Colored by Z_0 Value (in m)'])
 colorbar()
+
+figure; colormap(cmap)
+surf(aoiSurfReady,Z0_colored, 'EdgeColor','none')
+title([dataTitleText  ' Colored by Z_0 Value (in m)'])
+colorbar()
+view(2)
+
 
 figure;
 surf(aoiSurfReady,MN_binary)
 colormap(wind_cmap)
-title([dataTitleText ' Contrary to Wind Direction'])
+title([dataTitleText ' Red is Perpendicular to Wind Direction'])
 
 
 % Plot a histogram of Z0 values
 figure;
 histogram(Z0, 10);
-title([dataTitleText ' Z_0 Values'])
+title([dataTitleText ' Z_0 Values (in m) '])
 
 
 % Workspace cleanup - clear local working variables
