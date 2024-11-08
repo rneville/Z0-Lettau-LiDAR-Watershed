@@ -57,7 +57,7 @@ cmap=[   18,39,64;
 cmap = interp2(Xc([1,10,20,30,40,50],:),Yc([1,10,20,30,40,50],:),cmap,Xc,Yc); % interpolate colormap
 cmap=1/256*cmap;
 
-wind_cmap=[155,192,164; 212, 114, 100] % teal vs red for wind
+wind_cmap=[155,192,164; 212, 114, 100]; % teal vs red for wind
 wind_cmap=1/256*wind_cmap;
 
 %--------------------------------------------------------------- greetings!
@@ -374,4 +374,4 @@ title([dataTitleText ' Z_0 Values'])
 
 
 % Workspace cleanup - clear local working variables
-clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines
+clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines Wind_dir

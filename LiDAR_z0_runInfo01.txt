@@ -19,4 +19,4 @@ F11:DA110   // data spans cells as: upper_left:lower_right cell IDs
 
 0           // low pass filter the data? yes = 1, no = 0
 
-[0;-1;0]    // Wind Direction,  Note: [0;-1;0] represents wind from the north 
+[1;0;0]    // Wind Direction,  Ex: [0;-1;0] represents wind from the north 
