@@ -55,10 +55,10 @@ cmap=[   18,39,64;
 [Xc,Yc] = meshgrid([1:3],[1:50]);  % mesh of indices
 
 cmap = interp2(Xc([1,10,20,30,40,50],:),Yc([1,10,20,30,40,50],:),cmap,Xc,Yc); % interpolate colormap
-cmap=uint8(cmap);
+cmap=1/256*cmap;
 
 wind_cmap=[155,192,164; 212, 114, 100] % teal vs red for wind
-wind_cmap=uint8(wind_cmap);
+wind_cmap=1/256*wind_cmap;
 
 %--------------------------------------------------------------- greetings!
 fprintf('\n');
