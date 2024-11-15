@@ -313,15 +313,20 @@ fprintf('\n            Z0 skewness : %5.3f ', Z0_Stats.skew)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Plot watersheds colored by
-% Z0 value
-
+% Create table to plot watershed by color and include WS info in datatips 
 
 Z0_colored=zeros(fullX,fullY);
+Z0_area=zeros(fullX,fullY); 
+Z0_sil=zeros(fullX,fullY); 
+Z0_height=zeros(fullX,fullY);
 for i=1:num_WS
     idx=find(WS==i);
     Z0_colored(idx)= Z0(i);
+    Z0_area(idx)=Full_WS_Summary.area(i); 
+    Z0_sil(idx)=Full_WS_Summary.sil_area(i); 
+    Z0_height(idx)=Full_WS_Summary.height(i);
 end
+
 cmax=max(max(max(Z0_colored))); % establish color
 % scale with max value of max z0 when plotting z0
 watershed_lines = NaN(aoiX,aoiY);
@@ -375,17 +380,27 @@ surf(aoiSurfReady,Z0_colored, 'EdgeColor','none')
 title([dataTitleText  ' Colored by Z_0 Value (in m)'])
 colorbar()
 
+
 figure; colormap(cmap)
-surf(aoiSurfReady,Z0_colored, 'EdgeColor','none')
+f=surf(aoiSurfReady,Z0_colored, 'EdgeColor','none');
 title([dataTitleText  ' Colored by Z_0 Value (in m)'])
 colorbar()
 view(2)
+dtRow =[dataTipTextRow("Z0 (m): ",Z0_colored), 
+dataTipTextRow("Area (m^2): ",Z0_area), 
+dataTipTextRow("Silhouette Area (m^2): ",Z0_sil), 
+dataTipTextRow("Height (m): ",Z0_height)]; 
+f.DataTipTemplate.DataTipRows = dtRow;
+annotation('textbox', [0.1 0 1 0.1], ...
+    'String', 'Click a watershed for Z0 info', 'FontWeight', 'bold','EdgeColor', 'none')
 
 
 figure;
 surf(aoiSurfReady,MN_binary)
 colormap(wind_cmap)
 title([dataTitleText ' Red is Perpendicular to Wind Direction'])
+annotation('textbox', [0.1 0 1 0.1], ...
+    'String', 'Wind Direction:', 'FontWeight', 'bold','EdgeColor', 'none')
 
 
 % Plot a histogram of Z0 values
@@ -395,4 +410,4 @@ title([dataTitleText ' Z_0 Values (in m) '])
 
 
 % Workspace cleanup - clear local working variables
-clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines Wind_dir
+% clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines Wind_dir
