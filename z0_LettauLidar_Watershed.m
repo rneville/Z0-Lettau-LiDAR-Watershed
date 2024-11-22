@@ -229,7 +229,7 @@ for i=1:num_WS
     Ytemp=Y(~isnan(Z));
     Ztemp=Z(~isnan(Z));
 
-    mn=([nxoi,nyoi,nzoi]*Wind_dir)/(Wind_dir'*Wind_dir); % magnitude of component of the normal vector in the direction of the wind -- negative entries - gives components against the wind
+    mn=([nxoi,nyoi,nzoi]*Wind_dir)/(Wind_dir'*Wind_dir); % signed magnitude of component of the normal vector in the direction of the wind -- negative entries - gives components against the wind
     idx_mn=find(mn<0); % negative magnitude indicates opposite the wind
     %region3d=[Xtemp(idx_mn),Ytemp(idx_mn),Ztemp(idx_mn)]'; % pulls only points against the wind, restructure points to be (x location, y location, height) (in 3D)
     MN=([reshape(Nx,[],1),reshape(Ny,[],1), reshape(Nz,[],1)]*Wind_dir)/(Wind_dir'*Wind_dir);
