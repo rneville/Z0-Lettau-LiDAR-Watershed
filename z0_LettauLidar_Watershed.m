@@ -15,7 +15,9 @@
 %
 %  Input: file 'LiDAR_z0_runInfo01.txt' where user will specify xls data
 %    file name, sheet, data location within spreadsheet, resolution (in
-%    meters), if a lowpass filter should be applied, and wind direction.
+%    meters), if a lowpass filter should be applied, optional percent threshold 
+%    maxima smoothing, and either a specified wind direction or the option 
+%    to run over all wind directions. 
 %       
 %  Method:
 %   - Data is read in, optionally filtered with a low-pass filter, and mean
@@ -116,7 +118,7 @@ fclose(infile);
 % xlRange=input('Data spans cells as: upper_left:lower_right cell IDs: ', "s");
 % xyScale=input('Data resolution as N meters/grid_step (decimal OK): ');
 % filterChoice=input('Low pass filter the data? yes = 1, no = 0: ');
-% Wind_dir=input('Wind direction 
+% Wind_dir=input('Wind direction: ', "s");
 % dataSurface = xlsread(dataFileName, sheet, xlRange); %read in data from the excel sheet
 %
 %==========================================================================
@@ -199,7 +201,7 @@ WS=watershed(-aoiSurfReady); % since the watershed algortithm builds
 
 num_WS=max(max(WS)); % number of watershed regions
 
-% initialize vestors to hold
+% initialize vectors
 WS_Sil_Area=zeros(num_WS,1);
 [X,Y]=meshgrid(1:aoiX,1:aoiY);
 X=reshape(X,[],1);
