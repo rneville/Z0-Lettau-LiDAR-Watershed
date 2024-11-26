@@ -17,6 +17,12 @@ F11:DA110   // data spans cells as: upper_left:lower_right cell IDs
 
 10          // data resolution as N meters/grid_step (decimal OK)
 
-0           // low pass filter the data? yes = 1, no = 0
+0           // Guassian filter the data? yes = 1, no = 0
 
-[1;0;0]    // Wind Direction,  Ex: [0;-1;0] represents wind from the north 
+0.5         // Guassian filter standard deviation (if yes above); use WatershedSimplification.mlx to determine appropriate value for data
+
+0	   // Loop over all wind directions? yes = 1, no = 0 
+
+[1;0;0]    // (if no above) Wind direction,  Ex: [0;-1;0] represents wind from the north
+
+4.25        // threshold (as a %) for small local maxima suppression; use WatershedSimplification.mlx to determine appropriate value for data, 0 = no suppression

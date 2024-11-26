@@ -282,7 +282,7 @@ if WindLoopChoice == 0
             trans_pts=Proj*Rot*sq; % transform the square
             trans_area(j)=norm(cross(trans_pts(:,1),trans_pts(:,2))); % area of transformed square using the length of the cross product of two edges
         end
-        WS_Sil_Area(i,1)=sum(trans_area);
+        WS_Sil_Area(i)=sum(trans_area);
         clear trans_area
     end
 
@@ -424,7 +424,7 @@ else
     end
     
     for l=1:24 % for each wind vector, run full z0 computation 
-    Wind_dir=FullWind(l,:)'; % grabs current wind direction vector
+    Wind_dir=FullWind(k,:)'; % grabs current wind direction vector
 
     % Project each surface normal onto the wind vector for the entire surface.
     MN=([reshape(Nx,[],1),reshape(Ny,[],1), reshape(Nz,[],1)]*Wind_dir)/(Wind_dir'*Wind_dir);
@@ -480,7 +480,7 @@ else
             trans_pts=Proj*Rot*sq; % transform the square
             trans_area(j)=norm(cross(trans_pts(:,1),trans_pts(:,2))); % area of transformed square using the length of the cross product of two edges
         end
-        WS_Sil_Area(i,1)=sum(trans_area);
+        WS_Sil_Area(i)=sum(trans_area);
         clear trans_area
     end
 
@@ -493,33 +493,23 @@ else
     %                                                Summarize WS measurements
     %--------------------------------------------------------------------------
 
-    FullWind_WS_Summary(l).area= WS_Area;
-    FullWind_WS_Summary(l).sil_area=WS_Sil_Area;
-    FullWind_WS_Summary(l).height= WS_Height;
+    FullWind_WS_Summary(k).area= WS_Area;
+    FullWind_WS_Summary(k).sil_area=WS_Sil_Area;
+    FullWind_WS_Summary(k).height= WS_Height;
 
     %--------------------------------------------------------------------------
     %                                                          Z_0 computation
     %--------------------------------------------------------------------------
 
     Z0 = .5*WS_Height.*WS_Sil_Area./WS_Area;
-    FullWind_WS_Summary(l).z0=Z0;
-    clear Wind_dir MN WS_Area WS_Sil_Area
+    FullWind_WS_Summary(k).z0=Z0;
+    clear Wind_dir MN
     end
    
 %--------------------------------------------------------------------------
 %                                    Visualize variation of Z0 in Rose plot 
 %--------------------------------------------------------------------------
-% will use poloar histogram - need to specify bin edges, treat z0 as
-% bin count 
-for i=1:25
-edge(i)=pi*(2*i-1)/24; 
-end
 
-for i=1:24
-    counts(i)=mean(FullWind_WS_Summary(i).z0); 
-end 
 
-polarhistogram('BinEdges',edge, 'BinCounts',counts )
-    title([dataTitleText ' Z_0 Values (in m) Against Wind Direction'])
 
 end 
