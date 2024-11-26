@@ -97,12 +97,14 @@ dataSurface = xlsread(dataFileName, sheet, xlRange);
 
 Wind_dir=str2num(cellarray{1}{7});
 
-if size(Wind_dir)==[3 1]
-elseif size(Wind_dir)==[1 3]
-    Wind_dir = Wind_dir'
-else
-fprintf('Error. Wind direction must be a 3x1 vector.' )
-end
+% if size(Wind_dir)==[3 1]
+% elseif size(Wind_dir)==[1 3]
+%     Wind_dir = Wind_dir'
+% else
+% fprintf('Error. Wind direction must be a 3x1 vector.' )
+% end
+
+smoothingthreshold=str2num(cellarray{1}{8}); 
 
 fclose(infile);
 
@@ -187,6 +189,10 @@ fprintf('\n     mean of maxima : %5.3f (m)' , mean(zmax) )
 fprintf('\n     mean of minima : %5.3f (m)', mean(zmin) )
 fprintf('\n        mean relief : %5.3f (m)', mean(zmax) - mean(zmin) );
 fprintf('\n');
+%
+%----------------------------------(Optional) Suppress shallow local maxima
+ 
+aoiSurfReady=-imhmin(-aoiSurfReady, smoothingthreshold*(max(max(aoiSurfReady))-min(min(aoiSurfReady)))/100);
 
 %==========================================================================
 %                                               Begin Watershed computation
