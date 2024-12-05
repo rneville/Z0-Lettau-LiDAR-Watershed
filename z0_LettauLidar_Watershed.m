@@ -17,7 +17,7 @@
 %    file name, sheet, data location within spreadsheet, resolution (in
 %    meters), if a lowpass filter should be applied, optional percent threshold 
 %    maxima smoothing, and either a specified wind direction or the option 
-%    to run over all wind directions. 
+%    to run over full range of wind directions. 
 %       
 %  Method:
 %   - Data is read in, optionally filtered with a Guassian filter, and mean
