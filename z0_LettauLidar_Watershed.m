@@ -48,15 +48,17 @@ fontAxes = 12;
 % AzimElev = [135 45]; % a nice perspective viewing angle
 AzimElev = [-30 45]; % another viewing angle
 % custom colormap
-cmap=[   18,39,64;
+cmap=[ 9, 20,32;   
+    18,39,64;
     27,72,94;
     50,107,119;
     86, 139, 135;
     128,174,154;
-    181, 209, 174];
-[Xc,Yc] = meshgrid([1:3],[1:50]);  % mesh of indices
+    181, 209, 174; 
+    218, 232, 214];
+[Xc,Yc] = meshgrid([1:3],[1:70]);  % mesh of indices
 
-cmap = interp2(Xc([1,10,20,30,40,50],:),Yc([1,10,20,30,40,50],:),cmap,Xc,Yc); % interpolate colormap
+cmap = interp2(Xc([1,10,20,30,40,50,60,70],:),Yc([1,10,20,30,40,50,60,70],:),cmap,Xc,Yc); % interpolate colormap
 cmap=1/256*cmap;
 
 wind_cmap=[155,192,164; 212, 114, 100]; % teal vs red for wind
