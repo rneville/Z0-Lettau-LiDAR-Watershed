@@ -77,7 +77,7 @@ fprintf('\n');
 % be switched to prompt for user input (commented out below)
 %==========================================================================
 
-infile = fopen(['Niwot1m_z0_runInfo.txt'],'r'); % open file with read permission
+infile = fopen(['Elm10mm_z0_runInfo.txt'],'r'); % open file with read permission
 cellarray = textscan(infile,'%q', 'CommentStyle','//'); % the %q picks off text between double quotes
 %celldisp(cellarray)
 
@@ -154,14 +154,14 @@ end
 surfPreppedCentered = surfFiltered - mean(mean(surfFiltered)); % subtract mean
 
 fullSurfDims = size(surfPreppedCentered);
-fullX = fullSurfDims(2);
-fullY = fullSurfDims(1);
+fullX = fullSurfDims(1);
+fullY = fullSurfDims(2);
 
 %----------------------------- some preparations for Area of Interest (AOI)
 aoiSurfReady = surfPreppedCentered;
 aoiSurfDims = size(aoiSurfReady);
-aoiX = aoiSurfDims(2);
-aoiY = aoiSurfDims(1);
+aoiX = aoiSurfDims(1);
+aoiY = aoiSurfDims(2);
 
 %--------------------------------------------------------------------------
 %                 calculate & report extema stats for mean-centered surface
@@ -324,9 +324,9 @@ if WindLoopChoice == 0
     fprintf('\n  (Dataset : %s)', dataTitleText)
     fprintf('\n***************************************************************')
     fprintf('\n   number of watersheds : %i', num_WS)
-    fprintf('\n                z0 mean : %5.3f (m)', Z0_Stats.mean)
-    fprintf('\n  z0 standard deviation : %5.3f ', Z0_Stats.std)
-    fprintf('\n            z0 skewness : %5.3f ', Z0_Stats.skew)
+    fprintf('\n                z0 mean : %i (m)', Z0_Stats.mean)
+    fprintf('\n  z0 standard deviation : %i ', Z0_Stats.std)
+    fprintf('\n            z0 skewness : %i ', Z0_Stats.skew)
 
     %----------------------------------------------------------------------
     %                                                        Visualizations
@@ -373,8 +373,8 @@ if WindLoopChoice == 0
     xlabel('x: E-W (m)')
     ylabel('y: N-S (m)')
     zlabel('z: Elevation (m)')
-
-    view(2); axis square 
+    view(2); axis square
+    xlim([0,aoiX]); ylim([0,aoiY]); 
     annotation('textbox', [0.05 0 1 0.1], ...
         'String', 'Rotate to see Relief', 'FontWeight', 'bold','EdgeColor', 'none')
 
@@ -401,7 +401,8 @@ if WindLoopChoice == 0
     xlabel('x: E-W (m)')
     ylabel('y: N-S (m)')
     colorbar()
-    view(2); axis square
+    view(2); axis square;
+        xlim([0,aoiX]); ylim([0,aoiY]); 
     dtRow =[dataTipTextRow("z0 (m): ",Z0_colored),
         dataTipTextRow("Area (m^2): ",Z0_area),
         dataTipTextRow("Silhouette Area (m^2): ",Z0_sil),
@@ -419,7 +420,7 @@ if WindLoopChoice == 0
 
     % Plot a histogram of Z0 values
     figure;
-    histogram(Z0, 25);
+    histogram(Z0,25);
     title([dataTitleText ' z_0 Values (in m) '])
     xlabel(['z_0 values (m) '])
 
