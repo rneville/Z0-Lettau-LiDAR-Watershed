@@ -420,7 +420,7 @@ if WindLoopChoice == 0
 
     % Plot a histogram of Z0 values
     figure;
-    histogram(Z0,25);
+    histogram(Z0,25, 'Normalization', 'probability');
     title([dataTitleText ' z_0 Values (in m) '])
     xlabel(['z_0 values (m) '])
 
