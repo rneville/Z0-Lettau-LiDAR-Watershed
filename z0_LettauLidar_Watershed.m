@@ -77,7 +77,7 @@ fprintf('\n');
 % be switched to prompt for user input (commented out below)
 %==========================================================================
 
-infile = fopen(['Elm10mm_z0_runInfo.txt'],'r'); % open file with read permission
+infile = fopen(['Abalation_Bumps_Before_0325.txt'],'r'); % open file with read permission
 cellarray = textscan(infile,'%q', 'CommentStyle','//'); % the %q picks off text between double quotes
 %celldisp(cellarray)
 
@@ -425,7 +425,7 @@ if WindLoopChoice == 0
     xlabel(['z_0 values (m) '])
 
     % Workspace cleanup - clear local working variables
-    % clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines Wind_dir
+     clearvars -except Z0 Z0_Stats Full_WS_Summary num_WS num_WS aoiSurfReady cmap wind_cmap filterChoice dataFileName dataSurface dataTitleText1 xyScale WS Z0_colored MN_binary watershed_lines Wind_dir
 
     
 %==========================================================================
@@ -531,10 +531,12 @@ edge(i)=pi*(2*i-1)/24;
 end
 
 for i=1:24
-    counts(i)=mean(FullWind_WS_Summary(i).z0); 
+    m=mean(FullWind_WS_Summary(i).z0);
+    FullWind_WS_Summary(i).meanz0=m; 
+    counts(i)=m; 
 end 
 
-polarhistogram('BinEdges',edge, 'BinCounts',counts )
-    title({dataTitleText , 'z_0 Values (in m) Against Wind Direction'})
+polarhistogram('BinEdges',edge, 'BinCounts', counts)
+    title({dataTitleText , 'z_0 Values (in m)'})
 
 end 
